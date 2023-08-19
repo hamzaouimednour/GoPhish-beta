@@ -1,0 +1,665 @@
+{{define "body"}}
+<script src='https://html2canvas.hertzen.com/dist/html2canvas.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/jspdf@2.3.1/dist/jspdf.umd.js'></script>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <h2 class="page-header">
+            Campaigns Managment / <span class="campaign-name"> - </span>
+        </h2>
+
+
+    </div>
+    <h3>General Overview</h3>
+
+    <div id="campaign-details">
+        <div class="row">
+            <label class="col-sm-2 col-form-label"><strong>Name</strong></label>
+            <div class="col-sm-5 campaign-name" id="campaign-name"> - </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label"><strong>Owner</strong></label>
+            <div class="col-sm-5" id="campaign-owner"> - </div>
+        </div>
+        <div class="row" style="display: flex;
+        flex-direction: row;
+        align-items: center;">
+            <label class="col-sm-2 col-form-label"><strong>Progress State</strong></label>
+            <!-- <div class="col-sm-5" id="campaign-advancement" style="display:none ;"> - </div> -->
+            <div class="lv-circles lv-mid lg" id="mail_advencement" style="margin-left: 1%;height: 96px;">
+                <p id="campaign-advancement" style="margin-top: 31%;"></p>
+                <div id="circle01"></div>
+                <div id="circle02"></div>
+                <div id="circle03"></div>
+                <div id="circle04"></div>
+                <div id="circle05"></div>
+                <div id="circle06"></div>
+                <div id="circle07"></div>
+                <div id="circle08"></div>
+                <div id="circle09"></div>
+                <div id="circle10"></div>
+                <div id="circle11"></div>
+                <div id="circle12"></div>
+            </div>
+        </div>
+
+        <!-- <div class="row">
+            <label class="col-sm-2 col-form-label"><strong>Operations</strong></label>
+            <div class="col-sm-5" id="campaign-operations">
+
+            </div>
+        </div> -->
+        <!-- <div class="col-sm-5" style="display: none;" id="campaign-operations"><b> 0 </b></div> -->
+    </div>
+    <div class="jauge">
+        <h6 style="text-align: center; margin-top: 0; margin-bottom: 10px;">Risk Level</h6>
+        <div class="gauge gauge__liveupdate" id="gauge">
+            <div class="gauge--container" id="gauge-container">
+                <div class="gauge--marker"></div>
+                <div class="gauge--background"></div>
+                <div class="gauge--center"></div>
+                <div class="gauge--data"></div>
+                <div class="gauge--needle"></div>
+            </div>
+            <div class="gauge--labels mdl-typography--headline">
+                <!-- <span class="gauge--label__low">No</span> -->
+                <span class="gauge--label__spacer"></span>
+                <!-- <span class="gauge--label__high">Yes</span> -->
+            </div>
+        </div>
+        <h6 style="text-align: center; margin-top: 0; margin-bottom: 0px;" id="riskLevel_label"></h6>
+    </div>
+
+    <div class="row" id="campaignResults">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="timeline_chart"></div>
+                </div>
+            </div>
+            <div style="    height: 44px;
+            position: absolute;
+            display: flex;
+            right: 8%;
+            cursor: pointer;
+            margin-top: 0px;" id="btn_convert2">
+                <img src="\assets\global_assets\images\down_image.png" alt=""
+                    srcset="\assets\global_assets\images\down_image.png">
+            </div>
+            <br>
+            <br>
+            <br>
+
+            <div class="row down02" id="down02">
+                <div style="height:200px;" class="col-lg-1 col-md-1"></div>
+                <!-- <div id="sent_chart" style="height:200px;    fill: transparent;" class="col-lg-2 col-md-2"></div> -->
+                <div class="col-lg-2 col-md-2" style="display: flex; flex-direction: column; align-items: center;">
+                    <h8 style="color: rgb(2, 134, 108);font-size: 22px;"><b>Email sent</b></h8>
+                    <div class="lv-circles lv-mid lg" id="mail_sent">
+                        <p id="mail_sent-advancement"
+                            style="color: rgb(2, 134, 108);font-size: 20px;font-weight: bold;margin-left: 35%;">100%</p>
+                        <div id="mail_sent-circle01"></div>
+                        <div id="mail_sent-circle02"></div>
+                        <div id="mail_sent-circle03"></div>
+                        <div id="mail_sent-circle04"></div>
+                        <div id="mail_sent-circle05"></div>
+                        <div id="mail_sent-circle06"></div>
+                        <div id="mail_sent-circle07"></div>
+                        <div id="mail_sent-circle08"></div>
+                        <div id="mail_sent-circle09"></div>
+                        <div id="mail_sent-circle10"></div>
+                        <div id="mail_sent-circle11"></div>
+                        <div id="mail_sent-circle12"></div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" style="display: flex; flex-direction: column; align-items: center;">
+                    <h8 style="color: rgb(240, 184, 0);font-size: 22px;"><b>Email Opened</b></h8>
+                    <div class="lv-circles lv-mid lg" id="mail_opened">
+                        <p id="mail_opened-advancement"
+                            style="color: rgb(240, 184, 0);font-size: 20px;font-weight: bold;margin-left: 35%;">100%</p>
+                        <div id="mail_opened-circle01"></div>
+                        <div id="mail_opened-circle02"></div>
+                        <div id="mail_opened-circle03"></div>
+                        <div id="mail_opened-circle04"></div>
+                        <div id="mail_opened-circle05"></div>
+                        <div id="mail_opened-circle06"></div>
+                        <div id="mail_opened-circle07"></div>
+                        <div id="mail_opened-circle08"></div>
+                        <div id="mail_opened-circle09"></div>
+                        <div id="mail_opened-circle10"></div>
+                        <div id="mail_opened-circle11"></div>
+                        <div id="mail_opened-circle12"></div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" style="display: flex; flex-direction: column; align-items: center;">
+                    <h8 style="color: rgb(233, 116, 6);font-size: 22px;"><b>Clicked Link</b></h8>
+                    <div class="lv-circles lv-mid lg" id="mail_link">
+                        <p id="mail_link-advancement"
+                            style="color: rgb(233, 116, 6);font-size: 20px;font-weight: bold;margin-left: 35%;">100%</p>
+                        <div id="mail_link-circle01"></div>
+                        <div id="mail_link-circle02"></div>
+                        <div id="mail_link-circle03"></div>
+                        <div id="mail_link-circle04"></div>
+                        <div id="mail_link-circle05"></div>
+                        <div id="mail_link-circle06"></div>
+                        <div id="mail_link-circle07"></div>
+                        <div id="mail_link-circle08"></div>
+                        <div id="mail_link-circle09"></div>
+                        <div id="mail_link-circle10"></div>
+                        <div id="mail_link-circle11"></div>
+                        <div id="mail_link-circle12"></div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" style="display: flex; flex-direction: column; align-items: center;">
+                    <h8 style="color: rgb(235, 40, 26);font-size: 22px;"><b>Submitted Data</b></h8>
+                    <div class="lv-circles lv-mid lg" id="mail_sub_data">
+                        <p id="mail_sub_data-advancement"
+                            style="color: rgb(235, 40, 26);font-size: 20px;font-weight: bold;margin-left: 35%;">100%</p>
+                        <div id="mail_sub_data-circle01"></div>
+                        <div id="mail_sub_data-circle02"></div>
+                        <div id="mail_sub_data-circle03"></div>
+                        <div id="mail_sub_data-circle04"></div>
+                        <div id="mail_sub_data-circle05"></div>
+                        <div id="mail_sub_data-circle06"></div>
+                        <div id="mail_sub_data-circle07"></div>
+                        <div id="mail_sub_data-circle08"></div>
+                        <div id="mail_sub_data-circle09"></div>
+                        <div id="mail_sub_data-circle10"></div>
+                        <div id="mail_sub_data-circle11"></div>
+                        <div id="mail_sub_data-circle12"></div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2" style="display: flex; flex-direction: column; align-items: center;">
+                    <h8 style="color: rgb(0, 109, 233);font-size: 22px;"><b>Email Reported</b></h8>
+                    <div class="lv-circles lv-mid lg" id="mail_reported">
+                        <p id="mail_reported-advancement"
+                            style="color: rgb(0, 109, 233);font-size: 20px;font-weight: bold;margin-left: 35%;">100%</p>
+                        <div id="mail_reported-circle01"></div>
+                        <div id="mail_reported-circle02"></div>
+                        <div id="mail_reported-circle03"></div>
+                        <div id="mail_reported-circle04"></div>
+                        <div id="mail_reported-circle05"></div>
+                        <div id="mail_reported-circle06"></div>
+                        <div id="mail_reported-circle07"></div>
+                        <div id="mail_reported-circle08"></div>
+                        <div id="mail_reported-circle09"></div>
+                        <div id="mail_reported-circle10"></div>
+                        <div id="mail_reported-circle11"></div>
+                        <div id="mail_reported-circle12"></div>
+                    </div>
+                </div>
+
+                <!-- <div id="opened_chart" style="height:200px;" class="col-lg-2 col-md-2"></div> -->
+                <!-- <div id="clicked_chart" style="height:200px;" class="col-lg-2 col-md-2"></div> -->
+                <!-- <div id="submitted_data_chart" style="height:200px;" class="col-lg-2 col-md-2"></div> -->
+                <!-- <div id="reported_chart" style="height:200px;" class="col-lg-2 col-md-2"></div> -->
+                <div style="height:200px;" class="col-lg-1 col-md-1"></div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="row" id="resultsMapContainer">
+                <div class="col-md-6">
+                    <p style="text-align:center;">Targets Map</p>
+                    <div id="resultsMap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- </div> -->
+
+    <div id="flashes" class="row"></div>
+
+    {{if .User.Contains .Permissions "campaigns.create"}}
+    <div class="row">
+        <button id="operation-create" type="button" class="btn btn-primary" data-toggle="modal" data-backdrop="static"
+            data-target="#modal" onclick="edit('new')">
+            <i class="fa fa-plus"></i> New Operation</button>
+
+        <button type="button" onclick="exportListToCsvClick();" class="btn btn-primary dropdown-toggle">
+            <i class="fa fa-file-excel-o"></i> Export List
+        </button>
+        <button type="button" onclick="exportResultToCsvClick();" class="btn btn-primary dropdown-toggle">
+            <i class="fa fa-file-excel-o"></i> Export Result
+        </button>
+
+    </div>
+    {{end}} &nbsp;
+
+    <h3>Operations Details</h3>
+    </br>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="activeCampaigns"><a href="#activeCampaigns" aria-controls="activeCampaigns" role="tab"
+                data-toggle="tab">Active Operations</a></li>
+        <li role="archivedCampaigns"><a href="#archivedCampaigns" aria-controls="archivedCampaigns" role="tab"
+                data-toggle="tab">Archived Operations</a></li>
+    </ul>
+    </br>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="activeCampaigns">
+            <div id="flashes" class="row"></div>
+            &nbsp;
+            <div id="loading">
+                <i class="fa fa-spinner fa-spin fa-4x"></i>
+            </div>
+            <div id="emptyMessage" class="row" style="display:none;">
+                <div class="alert alert-info">
+                    No operations created yet. Let's create one!
+                </div>
+            </div>
+            <div class="row">
+                <table id="campaignTable" class="table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">Name</th>
+                            <th class="col-md-1">Template</th>
+                            <th class="col-md-1">Group</th>
+                            <th class="col-md-1">Risk level</th>
+                            <th class="col-md-2">Created Date</th>
+                            <th class="col-md-1">Status</th>
+                            <th class="col-md-2 no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="archivedCampaigns">
+            </br>
+            <div id="emptyMessage" class="row" style="display:none;">
+                </br>
+                <div class="alert alert-info">
+                    No archived operations.
+                </div>
+            </div>
+            <div class="row">
+                <table id="campaignTableArchive" class="table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">Name</th>
+                            <th class="col-md-4">Created Date</th>
+                            <th class="col-md-2">Status</th>
+                            <th class="col-md-3 no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- compaign details -->
+    </br>
+    </br>
+    <div>
+        <h3>Target Details</h3>
+        </br>
+        <div class="form-group">
+            <div class="row" style="display: flex; flex-direction: column;">
+                <div>Filter by Department :</div>
+                <div class="col-md-3" style="display: flex;">
+                    <label class="control-label" for="departmentCompagin" style="margin-right: 2px;">
+                        <div style="padding: 0; margin: 0;"></div>
+                    </label>
+                    <select class="form-control" id="departmentCompagin" onchange="filterByDepartment()" />
+                    </select>
+                </div>
+                <div>Filter by Location :</div>
+                <div class="col-md-3" style="display: flex;">
+                    <label class="control-label" for="location" style="margin-right: 2px;">
+                        <div style="padding: 0; margin: 0;"></div>
+                    </label>
+                    <select class="form-control" placeholder="Location " id="location"
+                        onchange="filterByLocalisation()" />
+                    <!-- <option></option> -->
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        </br>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="activeDetailCampaigns">
+                <div id="flashesDetail" class="row"></div>
+                &nbsp;
+                <div id="loadingDetail">
+                    <i class="fa fa-spinner fa-spin fa-4x"></i>
+                </div>
+                <div id="emptyDetailMessage" class="row" style="display:none;">
+                    <div class="alert alert-info">
+                        No Data created yet!
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="campaignDetailTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="col-md-3">First Name</th>
+                                <th class="col-md-3">Last Name</th>
+                                <th class="col-md-4">Email</th>
+                                <th class="col-md-2">Position</th>
+                                <th class="col-md-2">Location</th>
+                                <th class="col-md-2">Department</th>
+                                <th class="col-md-2">Status</th>
+                                <th class="col-md-2">Reported</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="archivedDetailCampaigns">
+                </br>
+                <div id="emptyDetailMessage" class="row" style="display:none;">
+                    </br>
+                    <div class="alert alert-info">
+                        No Data created yet!
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="campaignTableDetailArchive" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="col-md-3">First Name</th>
+                                <th class="col-md-3">Last Name</th>
+                                <th class="col-md-4">Email</th>
+                                <th class="col-md-2">Position</th>
+                                <th class="col-md-2">Status</th>
+                                <th class="col-md-2">Reported</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </br>
+    </br>
+    <div>
+        <h3>Statistics per day</h3>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="activeDetailPerDayCampaigns">
+                <div id="flashesDetailPerDay" class="row"></div>
+                &nbsp;
+                <div id="loadingDetailPerDay">
+                    <i class="fa fa-spinner fa-spin fa-4x"></i>
+                </div>
+                <div id="emptyDetailPerDayMessage" class="row" style="display:none;">
+                    <div class="alert alert-info">
+                        No Data created yet!
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="campaignDetailPerDayTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">Name</th>
+                                <th class="col-md-3">E-mails Sent</th>
+                                <th class="col-md-3">Email Clicked</th>
+                                <th class="col-md-2">Opening Rate</th>
+                                <th class="col-md-3">Click Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="archivedDetailPerDayCampaigns">
+                </br>
+                <div id="emptyDetailPerDayMessage" class="row" style="display:none;">
+                    </br>
+                    <div class="alert alert-info">
+                        No Data created yet!
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="campaignTableDetailPerDayArchive" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">Name</th>
+                                <th class="col-md-3">E-mails Sent</th>
+                                <th class="col-md-3">Email Clicked</th>
+                                <th class="col-md-2">Opening Rate</th>
+                                <th class="col-md-3">Click Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </br>
+    </br>
+    <div>
+        <h3>Statistics By department</h3>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="activeDetailPerDepartmentCampaigns">
+                <div id="flashesDetailPerDepartment" class="row"></div>
+                &nbsp;
+                <div id="loadingDetailPerDepartment">
+                    <i class="fa fa-spinner fa-spin fa-4x"></i>
+                </div>
+                <div id="emptyDetailPerDepartmentMessage" class="row" style="display:none;">
+                    <div class="alert alert-info">
+                        No Data created yet!
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="campaignDetailPerDepartmentTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">Name</th>
+                                <th class="col-md-3">E-mails Sent</th>
+                                <th class="col-md-3">Email Clicked</th>
+                                <th class="col-md-2">Opening Rate</th>
+                                <th class="col-md-3">Click Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="archivedDetailPerDepartmentCampaigns">
+                </br>
+                <div id="emptyDetailPerDepartmentMessage" class="row" style="display:none;">
+                    </br>
+                    <div class="alert alert-info">
+                        No Data created yet!
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="campaignTableDetailPerDepartmentArchive" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">Name</th>
+                                <th class="col-md-3">E-mails Sent</th>
+                                <th class="col-md-3">Email Clicked</th>
+                                <th class="col-md-2">Opening Rate</th>
+                                <th class="col-md-3">Click Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- compaign details -->
+
+</div>
+
+{{if or (.User.Contains .Permissions "campaigns.create") (.User.Contains .Permissions "campaigns.update")}}
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 85%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="dismiss()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="campaignModalLabel">New Operation</h4>
+            </div>
+            <div class="modal-body" id="modal_body">
+                <div class="row" id="modal.flashes"></div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Operation name" autofocus>
+
+                    <!-- LIBRARY_TEMPLATES -->
+                    <input type="hidden" id="library" value="">
+                    <div class="row col-xs-10" style="margin-top: 20px;">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-master">MASTER</a></li>
+                            <li><a data-toggle="tab" href="#tab-team">TEAM</a></li>
+                            <li><a data-toggle="tab" href="#tab-private">PRIVATE</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="cover-spin"></div>
+                            <div id="tab-master" class="tab-pane fade in active tab-bordered">
+                                <div class="col-md mlx mrx mtl mbl">
+                                    <div id="emptyMessage-masters" class="row" style="display:none;">
+                                        <div class="alert alert-info">
+                                            No Library Templates was found!
+                                        </div>
+                                    </div>
+                                    <table id="mastersTable" class="table" style="display:none;">
+                                        <thead>
+                                            <tr>
+                                                <th class="no-sort">#</th>
+                                                <th>Scenario Library</th>
+                                                <th style="text-align: center;">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="tab-team" class="tab-pane fade tab-bordered">
+                                <div class="col-md mlx mrx mtl mbl">
+                                    {{if eq .User.Teamid 0}}
+                                    <div class="form-group row">
+                                        <label for="entity" class="col-sm-2 col-form-label">Filter by Entity : </label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" name="entity" placeholder="select entity"
+                                                id="entity">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                    <div id="emptyMessage-teams" class="row" style="display:none;">
+                                        <div class="alert alert-info">
+                                            No Library Templates was found!
+                                        </div>
+                                    </div>
+                                    <table id="teamsTable" class="table" style="display:none;">
+                                        <thead>
+                                            <tr>
+                                                <th class="no-sort">#</th>
+                                                <th>Scenario Library</th>
+                                                <th style="text-align: center;">Entity</th>
+                                                <th style="text-align: center;">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="tab-private" class="tab-pane fade tab-bordered">
+                                <div class="col-md mlx mrx mtl mbl">
+                                    <div id="emptyMessage-privates" class="row" style="display:none;">
+                                        <div class="alert alert-info">
+                                            No Library Templates was found!
+                                        </div>
+                                    </div>
+                                    <table id="privatesTable" class="table" style="display:none;">
+                                        <thead>
+                                            <tr>
+                                                <th class="no-sort">#</th>
+                                                <th>Scenario Library</th>
+                                                <th style="text-align: center;">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-2" style="margin-left: 30px;margin-top: 5%;">
+                        <label class="control-label" for="name">Theme:</label>
+                        <div class="form-group">
+                            <select class="form-control" name="topic" placeholder="select theme" id="topic">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                        <label class="control-label" for="name">Category:</label>
+                        <div class="form-group">
+                            <select class="form-control" name="category" placeholder="select category" id="category">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                        <label class="control-label" for="name">Language:</label>
+                        <div class="form-group">
+                            <select class="form-control" name="language" placeholder="select language" id="language">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- /LIBRARY_TEMPLATES -->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label" for="url">Launch Date </label>
+                            <input type="text" class="form-control" id="launch_date" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label" for="delay">Send Emails By (Optional)
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                                    title="If specified, Trawler will send emails evenly between the campaign launch and this date."></i>
+                            </label>
+                            <input type="text" class="form-control" id="send_by_date" autocomplete="random-data" />
+                            <!--Chrome ignores autocomplete="off".-->
+                        </div>
+                    </div>
+
+                    <label class="control-label" for="users">Groups:</label>
+                    <select class="form-control" id="users" multiple="multiple"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="dismiss()">Close</button>
+                <button type="button" id="launchButton" class="btn btn-primary" onclick="launch()">
+                    <i class="fa fa-save"></i> Save Operation</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+
+{{end}} {{define "scripts"}}
+<script src="/js/src/app/campaigns.js"></script>
+<script src="/js/src/app/operations_results.js"></script>
+<script src="/js/src/app/operations_library_templates.js"></script>
+<script src="/js/src/app/gauge.js"></script>
+{{end}}

@@ -1,0 +1,166 @@
+{{define "body"}}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div id="loading">
+        <i class="fa fa-spinner fa-spin fa-4x"></i>
+    </div>
+    <div style="display:none;" id="campaignResults">
+        <div class="row">
+            <h3 class="page-header">Campaigns Management / <span id="page-title"></span></h3>
+        </div>
+        <div class="row">
+            <div class="col-md-5" id="campaign-details">
+                <div class="row">
+                    <label class="col-sm-4 col-form-label"><strong>Name</strong></label>
+                    <div class="col-sm-5 campaign-name" id="campaign-name"> - </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-4 col-form-label"><strong>Advancement</strong></label>
+                    <div class="col-sm-5" id="campaign-advancement"> - </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-4 col-form-label"><strong>Owner</strong></label>
+                    <div class="col-sm-5" id="campaign-owner"> - </div>
+                </div>
+            </div>
+
+            <div class="pull-right" id="">
+                <a href="/campaign_parents" class="btn btn-default">
+                    <i class="fa fa-arrow-circle-o-left fa-lg"></i> Back
+                </a>
+                <div class="btn-group">
+                    <button type="button" id="exportButton" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-file-excel-o"></i> Export CSV
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="exportButton">
+                        <li>
+                            <a href="#" onclick="exportAsCSV('results')">Results</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="exportAsCSV('events')">Raw Events</a>
+                        </li>
+                    </ul>
+                </div>
+                <button id="complete_button" type="button" class="btn btn-blue" data-toggle="tooltip" onclick="completeCampaign()">
+                    <i class="fa fa-flag-checkered"></i> Complete
+                </button>
+                <button type="button" class="btn btn-danger" data-toggle="tooltip" onclick="deleteCampaign()">
+                    <i class="fa fa-trash-o fa-lg"></i> Delete
+                </button>
+                <button id="refresh_btn" type="button" class="btn btn-blue" data-toggle="tooltip" onclick="refresh()">
+                    <i class="fa fa-refresh fa-lg"></i> Refresh
+                </button>
+                <span id="refresh_message">
+                    <i class="fa fa-spin fa-spinner"></i> Refreshing
+                </span>
+            </div>
+        </div>
+        <br />
+        <!--
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control" name="" id="">
+                    <option value="" selected>Groups</option>
+                </select>
+            </div>
+        </div>
+         -->
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table" id="stats-table" style="border-radius: 15px;background: #ddd;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Group Name</th>
+                            <th scope="col">Targets</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background: #f5f5f5;">
+                        <tr>
+                            <th>-</th>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div id="timeline_chart"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="height:200px;" class="col-lg-1 col-md-1"></div>
+                    <div id="sent_chart" style="height:200px;    fill: transparent;" class="col-lg-2 col-md-2"></div>
+                    <div id="opened_chart" style="height:200px;" class="col-lg-2 col-md-2"></div>
+                    <div id="clicked_chart" style="height:200px;" class="col-lg-2 col-md-2"></div>
+                    <div id="submitted_data_chart" style="height:200px;" class="col-lg-2 col-md-2"></div>
+                    <div id="reported_chart" style="height:200px;" class="col-lg-2 col-md-2"></div>
+                    <div style="height:200px;" class="col-lg-1 col-md-1"></div>
+                </div>
+                <div class="row" id="resultsMapContainer">
+                    <div class="col-md-6">
+                        <p style="text-align:center;">Targets Map</p>
+                        <div id="resultsMap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Details</h2>
+            <table id="resultsTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Result ID</th>
+                        <th class="no-sort"></th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th class="text-center">Reported</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="flashes" class="row"></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="decryptionModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document" style="width: 900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="groupModalLabel">Decryption</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="modal.flashes"></div>
+                <input type="hidden" id="cipher"/>
+                <label class="control-label" for="page">Private Key:</label>
+                <div class="form-group">
+                    <textarea id="privKey" rows="20" style="width: 100%;"></textarea>
+                </div>
+                <label class="control-label" for="">Plain Text Password:</label>
+                <div class="form-group">
+                    <textarea id="decrypt" style="width: 100%;" readonly></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="decryption">Decrypt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{end}} {{define "scripts"}}
+<script src="/assets/global_assets/js/demo_pages/jsencrypt.min.js"></script>
+<script src="/js/src/app/campaign_results.js"></script>
+{{end}}

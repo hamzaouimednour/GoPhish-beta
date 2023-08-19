@@ -1,0 +1,144 @@
+{{define "body"}}
+
+<head>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+</head>
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <h1 class="page-header">
+            Search and Purchase Domain Names
+        </h1>
+    </div>
+    <div id="flashes" class="row"></div>
+
+    &nbsp;
+    <!--  <div id="loading">
+        <i class="fa fa-spinner fa-spin fa-4x"></i>
+    </div> -->
+
+    <form method="POST">
+        <label for="domain-search">Search for a Domain:</label>
+        <div class="row">
+            <div class="col-md-2">
+                <input class="form-control" type="text" id="domain-search" name="domain-search"
+                    onkeydown="return event.key != 'Enter';">
+            </div>
+            <div class="col-md-2">
+
+                <button type="button" class="btn btn-primary" onclick="getDomains()">Search</button>
+            </div>
+        </div>
+    </form>
+    <div id="loading" style="display:none">
+        <i class="fa fa-spinner fa-spin fa-4x"></i>
+    </div>
+    <div class="row">
+        <div id="mainForm" class="col-sm-10" style="display:none">
+            <h2>Available Domains</h2>
+
+            <table id="data-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Domain Name</th>
+                        <th>Type</th>
+                        <th>Availability</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+
+                        <th class="col-md-2"></th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2" style="float: right;">
+            <div style="display:none" id="cartCheck">
+                <h4 class="badge-pill badge-light mt-3 mb-3 p-2 text-center">Cart</h4>
+                <ul id="cartList"
+                    style=" background-color:rgba(11, 11, 86, 0.11); border-radius: 7px ;  padding-top: 10px; padding-right: 10px;">
+                </ul>
+                <button type="button" class="btn btn-primary" id="checkout" data-toggle="modal" data-backdrop="static"
+                    data-target="#modal"> Check Out </button>
+
+            </div>
+
+        </div>
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!-- New Template Modal -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="templateModalLabel">New Order</h4>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <label class="control-label" for="First">First Name:</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="template.nFirstame"
+                                placeholder="First Name" id="First" autofocus />
+                        </div>
+                        <label class="control-label" for="Last">Last Name:</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="template.Last" placeholder="Last Name"
+                                id="Last" autofocus />
+                        </div>
+                        <label class="control-label" for="envelope-sender">Email:
+                            <!-- <i
+                                class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                                title="This sender is shown to the user by most email clients. Defaults to the SMTP From as defined in the Sending Profile."></i> --></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="<test@example.com>" id="email" />
+                        </div>
+                        <label class="control-label" for="Address">Address:</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Country example : FR,TN"
+                                id="country" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="line1" id="line1" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="City" id="city" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Zip" id="zip" />
+                        </div>
+                        <!--                     <div class="form-group" id="language_input">
+                            <label class="control-label" for="language">Language:</label>
+                            <input class="form-control" name="language" placeholder="language" id="language" />
+
+                        </div> -->
+                        <div class="form-group" id="phone">
+                            <label class="control-label" for="Phone">Phone:</label>
+                            <input class="form-control" name="Phone" placeholder="Phone" id="Phone" />
+                        </div>
+
+                        <div class="checkbox checkbox-primary" id="checkPremium" style="display:none">
+                            <input type="checkbox" id="visibility" name="visibility" value="0" />
+                            <label for="visibility">
+                                premium <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                                    title="
+                                    vous avez connaissance d'un domaine premium sur votre panier"></i>
+                            </label>
+                        </div>
+                        <div class="row" id="modal.flashes"></div>
+                        <div id="loadingModal" style="display:none">
+                            <i class="fa fa-spinner fa-spin fa-4x"></i>
+                        </div>
+                        <div class="row" id="success" style="display:none ;background-color: green "> </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="modalSubmit" onclick="submit()">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{end}} {{define "scripts"}}
+    <script src="/js/src/app/domains.js"></script>
+    {{end}}

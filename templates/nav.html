@@ -1,0 +1,87 @@
+{{define "nav"}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+
+                {{if .User.Contains .Permissions "campaigns.access"}}
+                <li>
+                    <a href="/campaign_parents">Campaigns</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "groups.access"}}
+                <li>
+                    <a href="/groups">Users &amp; Groups</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "templates.access"}}
+                <li>
+                    <a href="/domains">Domains</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "groups.access"}}
+                <li>
+                    <a href="/library_templates">Scenario Library</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "templates.access"}}
+                <li> <a href="/templates">Email Templates</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "landing_pages.access"}}
+                <li>
+                    <a href="/landing_pages">Landing Pages</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "redirection_pages.access"}}
+                <li>
+                    <a href="/redirection_pages">Redirection Pages</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "sending_profiles.access"}}
+                <li>
+                    <a href="/sending_profiles">Sending Profiles</a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "settings.access"}}
+                <li>
+                    <a href="/settings">Account Settings</span></a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "settings.access"}}
+                <li>
+                    <a href="/library_settings/category">Category Settings</span></a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "settings.access"}}
+                <li>
+                    <a href="/library_settings/topic">Topic Settings</span></a>
+                </li>
+                {{end}} {{if .User.Contains .Permissions "users.access"}}
+                <li>
+                    <a href="/users">User Management<span class="nav-badge badge pull-right">Admin</span></a>
+                </li>
+                {{end}} {{if and (.User.Contains .Permissions "teams.access") (eq .User.Role.Slug "admin") }}
+                <li>
+                    <a href="/teams">Entity Management<span class="nav-badge badge pull-right">Admin</span></a>
+                </li>
+                {{end}} {{if and (.User.Contains .Permissions "departments.access") (eq .User.Role.Slug "teamAdmin") }}
+                <li>
+                    <!-- <a href="/departments">Department Management<span class="nav-badge badge pull-right">Team Admin</span></a> -->
+                    <a href="/departments">Department Management</a>
+                </li>
+                {{end}} {{if and (.User.Contains .Permissions "webhooks.access") (eq .User.Role.Slug "admin") }}
+                <li>
+                    <a href="/webhooks">Webhooks<span class="nav-badge badge pull-right">Admin</span></a>
+                </li>
+                {{end}}
+
+                <li>
+                    <hr>
+                </li>
+                <!-- <li>
+                    <a href="https://docs.getgophish.com/user-guide/">User Guide</a>
+                </li>
+                <li>
+                    <a href="https://docs.getgophish.com/api-documentation/">API Documentation</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+{{end}}

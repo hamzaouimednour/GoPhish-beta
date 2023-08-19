@@ -1,0 +1,376 @@
+{{define "body"}}
+<!-- Global stylesheets -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+<link href="/assets/global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+<!-- <link href="/assets/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+<link href="/assets/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+<!-- <link href="/assets/assets/css/layout.min.css" rel="stylesheet" type="text/css"> -->
+<link href="/assets/assets/css/components.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+<!-- /global stylesheets -->
+
+<!-- Core JS files -->
+<script src="/assets/global_assets/js/main/jquery.min.js"></script>
+<script src="/assets/global_assets/js/main/bootstrap.bundle.min.js"></script>
+<script src="/assets/global_assets/js/plugins/loaders/blockui.min.js"></script>
+<!-- /core JS files -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+<!-- Theme JS files -->
+<!-- <script src="/assets/global_assets/js/plugins/visualization/d3/d3.min.js"></script> -->
+<!-- <script src="/assets/global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script> -->
+<script src="/assets/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script src="/assets/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script src="/assets/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/assets/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+
+<script src="/assets/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="/assets/global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+<script src="/assets/global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+<!-- <script src="/assets/global_assets/js/plugins/visualization/d3/venn.js"></script> -->
+<script src="/assets/assets/js/app.js"></script>
+<script src="/assets/global_assets/js/demo_pages/dashboard.js"></script>
+
+
+
+<script src="/assets/global_assets/js/demo_pages/charts/d3/other/treemap.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/other/bubbles.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/other/streamgraph.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/other/waterfall.js"></script>
+<!-- <script src="/assets/global_assets/js/demo_pages/charts/d3/venn/venn_basic.js"></script> -->
+<script src="/assets/global_assets/js/demo_pages/charts/d3/venn/venn_colors.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/venn/venn_rings.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/venn/venn_weighted.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/venn/venn_interactive.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/venn/venn_tooltip.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/chords/chord_basic.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/chords/chord_chart.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/chords/chord_tweens.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/chords/chord_arcs.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/sunburst/sunburst_basic.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/sunburst/sunburst_distortion.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/sunburst/sunburst_zoom.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/d3/sunburst/sunburst_combined.js"></script>
+
+<script src='https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js'></script>
+<script src='https://html2canvas.hertzen.com/dist/html2canvas.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/jspdf@2.3.1/dist/jspdf.umd.js'></script>
+
+
+<script src="/assets/global_assets/js/plugins/visualization/echarts/echarts.min.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/echarts/funnels_calendars.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/echarts/areas.js"></script>
+<script src="/assets/global_assets/js/demo_pages/charts/echarts/pies_donuts.js"></script>
+<!-- <script src="/assets/assets/js/export.js"></script> -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">
+        Welcome To Dashboard
+    </h1>
+    <!-- Page content -->
+    <div class="page-content">
+
+
+
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+
+
+
+            <!-- Content area -->
+            <!-- <div class="content"> -->
+
+            <!-- Main charts -->
+            <!-- <div class="row"> -->
+            <!-- <div class="col-xl-7"> -->
+            <div class="col-xl-4">
+
+                <!-- Progress counters -->
+                <div class="row">
+                    <div class="col-sm-3">
+
+                        <!-- Available hours -->
+                        <div class="card text-center">
+                            <div class="card-body">
+
+                                <!-- Progress counter -->
+                                <div class="svg-center position-relative" id="hours-available-progress"></div>
+                                <!-- /progress counter -->
+
+
+                                <!-- Bars -->
+                                <!-- <div id="hours-available-bars"></div> -->
+                                <!-- /bars -->
+
+                            </div>
+                        </div>
+                        <!-- /available hours -->
+
+                    </div>
+
+                    <div class="col-sm-3">
+
+                        <!-- Productivity goal -->
+                        <div class="card text-center">
+                            <div class="card-body">
+
+                                <!-- Progress counter -->
+                                <div class="svg-center position-relative" id="goal-progress"></div>
+                                <!-- /progress counter -->
+
+                                <!-- Bars -->
+                                <!-- <div id="goal-bars"></div> -->
+                                <!-- /bars -->
+
+                            </div>
+                        </div>
+                        <!-- /productivity goal -->
+
+                    </div>
+                    <div class="col-sm-3">
+
+                        <!-- Available hours -->
+                        <div class="card text-center">
+                            <div class="card-body">
+
+                                <!-- Progress counter -->
+                                <div class="svg-center position-relative" id="hours-available-progress2"></div>
+                                <!-- /progress counter -->
+
+
+                                <!-- Bars -->
+                                <!-- <div id="hours-available-bars"></div> -->
+                                <!-- /bars -->
+
+                            </div>
+                        </div>
+                        <!-- /available hours -->
+
+                    </div>
+
+                    <div class="col-sm-3">
+
+                        <!-- Productivity goal -->
+                        <div class="card text-center">
+                            <div class="card-body">
+
+                                <!-- Progress counter -->
+                                <div class="svg-center position-relative" id="goal-progress2"></div>
+                                <!-- /progress counter -->
+
+                                <!-- Bars -->
+                                <!-- <div id="goal-bars"></div> -->
+                                <!-- /bars -->
+
+                            </div>
+                        </div>
+                        <!-- /productivity goal -->
+
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <!-- /progress counters -->
+
+
+
+            </div>
+            <div>
+                <div style="    height: 44px;
+                position: absolute;
+                display: flex;
+                right: 8%;
+                cursor: pointer;
+                margin-top: 26px;" id="btn_convert">
+                    <img src="\assets\global_assets\images\down_image.png" alt=""
+                        srcset="\assets\global_assets\images\down_image.png">
+                </div>
+                <div class="card down01" id="down01">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title">Statistics of active campaigns : </h5>
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div class="chart has-fixed-height" id="area_basic"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+
+            <!-- Traffic sources -->
+            <div class="card">
+
+                <br>
+                <br>
+                <!-- My messages -->
+                <!-- <div class="card"> -->
+                <!-- Numbers -->
+                <!-- <div class="card-body py-0"> -->
+                <div class="text-center" style="display: flex; justify-content: space-around;">
+                    <div class="col-4"
+                        style="padding: 21px; border-radius: 15px; background: rgba(23, 193, 159, 0.334);">
+                        <h5 class="font-weight-semibold" id="compaign_scheduled">32</h5>
+                        <span class="text-muted">Campaigns scheduled</span>
+                    </div>
+
+                    <div class="col-4"
+                        style="padding: 21px; border-radius: 15px; background: rgba(255, 215, 84, 0.338);">
+                        <h5 class="font-weight-semibold" id="compaign_progress">20</h5>
+                        <span class="text-muted">Campaigns In progress</span>
+                    </div>
+
+                    <div class="col-4"
+                        style="padding: 21px; border-radius: 15px; background: rgba(243, 157, 18, 0.332);">
+                        <h5 class="font-weight-semibold" id="compaign_completed">30</h5>
+                        <span class="text-muted">Campaigns completed</span>
+                    </div>
+
+
+                </div>
+                <!-- </div> -->
+                <!-- /numbers -->
+                <!-- </div> -->
+                <!-- /my messages -->
+                <br>
+                <br>
+                <br>
+
+
+                <br>
+                <!-- Multiple funnels (overlay) -->
+                <div style="    height: 44px;
+                position: absolute;
+                display: flex;
+                right: 8%;
+                cursor: pointer;
+                margin-top: 26px;" id="btn_convert1">
+                    <img src="\assets\global_assets\images\down_image.png" alt=""
+                        srcset="\assets\global_assets\images\down_image.png">
+                </div>
+                <div class="card down02" id="down02">
+                    <div class="card">
+                        <h5 class="card-title">Number of successive victims</h5>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <div class="chart has-fixed-height" id="funnel_multiple_overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /multiple funnels (overlay) -->
+                <!-- <div class="chart position-relative" id="traffic-sources"></div> -->
+
+                <div style="    height: 44px;
+                position: absolute;
+                display: flex;
+                right: 8%;
+                cursor: pointer;
+                margin-top: 26px;" id="btn_convert2">
+                    <img src="\assets\global_assets\images\down_image.png" alt=""
+                        srcset="\assets\global_assets\images\down_image.png">
+                </div>
+                <div class="card down03" id="down03">
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h5 class="card-title"  id="nameChange">Entities with the highest Click rates</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <div class="chart has-fixed-height" id="pie_basic"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="dashboard">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title">Clicked / Submitted Data Rate</h5>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 5%;">
+                        <div class="row">
+                            <div id="overview_chart_click" style="height:200px;"
+                                class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+                            <div id="overview_chart_submit" style="height:200px;margin-top: 2%;"
+                                class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header header-elements-sm-inline">
+                    <h6 class="card-title">Last campaigns</h6>
+                    <div><button type="button" onclick="exportToCsvClick();" class="btn btn-primary dropdown-toggle">
+                            <i class="fa fa-file-excel-o"></i> Export CSV
+                        </button></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="campaignsTable" class="table text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Owner</th>
+                                <th>Start date</th>
+                                <th>Operation</th>
+                                <th>Status</th>
+                                <th>Risk level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <!-- Vitims modal -->
+            <div class="modal fade" id="victimsModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+                <div class="modal-dialog" role="document" style="width: 1100px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="victimsModalLabel">Overall Victims</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row" id="victimsModal.flashes"></div>
+                            <table id="victimsTable" class="table table-hover table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th><strong>First Name</strong></th>
+                                        <th><strong>Last Name</strong></th>
+                                        <th><strong>Email</strong></th>
+                                        <th><strong>Position</strong></th>
+                                        <th><strong>Department</strong></th>
+                                        <th><strong>Location</strong></th>
+                                        <th><strong>N° Clicked Links</strong></th>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Victims modal-->
+
+            <!-- /content area -->
+        </div>
+        <!-- /main content -->
+        <!-- /page content -->
+
+
+    </div>
+    {{end}} {{define "scripts"}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="/js/src/app/graph.js"></script>
+    <script src="/js/src/app/dashboard.js"></script>
+    {{end}}

@@ -1,0 +1,232 @@
+{{define "body"}}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">
+        {{.Title}}
+    </h1>
+    <div id="flashes" class="row"></div>
+
+    <div class="row" style="margin-top: 20px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab-1">General Informations</a></li>
+            <li><a data-toggle="tab" href="#tab-2">Email Template</a></li>
+            <li><a data-toggle="tab" href="#tab-3">Landing Page</a></li>
+            <li><a data-toggle="tab" href="#tab-5">Redirection Page</a></li>
+            <li><a data-toggle="tab" href="#tab-4">Sending Setup</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade in active tab-bordered">
+                <div class="row mtl mbl">
+                    <div class="col-xs-4 mrl" style="margin-left: 10%;">
+                        <label class="control-label" for="name">Name:</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Scenario name" id="name" autofocus />
+                        </div>
+
+                        <label class="control-label" for="name">Description:</label>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" placeholder="Scenario description"
+                                id="description" style="height: 226px;"></textarea>
+                        </div>
+
+                        <label class="control-label" for="name">Tags:</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="tag1;tag2;tag3" id="tags" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-3" style="margin-left: 10%;">
+                        <label class="control-label" for="name">Theme:</label>
+                        <div class="form-group">
+                            <select class="form-control" name="topic" placeholder="select theme" id="topic">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                        <label class="control-label" for="name">Category:</label>
+                        <div class="form-group">
+                            <select class="form-control" name="category" placeholder="select category" id="category">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                        <label class="control-label" for="name">Language:</label>
+                        <div class="form-group">
+                            <select class="form-control" name="language" placeholder="select language" id="language">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox checkbox-primary">
+                            <input type="checkbox" id="visibility" name="visibility" value="0" />
+                            <label for="visibility">Is Public <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Item will be shared with same Entity members !"></i></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-2" class="tab-pane fade tab-bordered">
+                <div class="col-md mlx mrx mtl mbl">
+                    <div id="emptyMessage2" class="row" style="display:none;">
+                        <div class="alert alert-info">
+                            No Email Templates created yet!
+                        </div>
+                    </div>
+                    <strong>List of Email Templates</strong>
+                    <input type="hidden" id="template" />
+                    <table id="templatesTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">#</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Theme</th>
+                                <th>Creator</th>
+                                <th>Last Modified Date</th>
+                                <th>Language</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tab-3" class="tab-pane fade tab-bordered">
+                <div class="col-md mlx mrx mtl mbl">
+                    <div id="emptyMessage3" class="row" style="display:none;">
+                        <div class="alert alert-info">
+                            No Landing Pages created yet!
+                        </div>
+                    </div>
+                    <strong>List of Landing Pages</strong>
+                    <input type="hidden" id="page" />
+                    <table id="pagesTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">#</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Theme</th>
+                                <th>Creator</th>
+                                <th>Last Modified Date</th>
+                                <th>Language</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tab-5" class="tab-pane fade tab-bordered">
+                <div class="col-md mlx mrx mtl mbl">
+                    <div id="emptyMessage5" class="row" style="display:none;">
+                        <div class="alert alert-info">
+                            No Redirection Pages created yet!
+                        </div>
+                    </div>
+
+                    <div class="checkbox checkbox-primary  align-left">
+                        <input id="redirection_checkbox" type="checkbox">
+                        <label for="redirection_checkbox">
+                            Redirect to URL <i class="fa fa-question-circle" data-toggle="tooltip"
+                                data-placement="right"
+                                title="This option lets you redirect the user to a URL after credentials are submitted (form submit using POST method only!)."></i>
+                        </label>
+                    </div>
+                    <input id="redirection_url" class="form-control" placeholder="http://example.com" style="margin-bottom: 20px;width: 65%;display:none;" />
+
+                    <strong>List of Redirection Pages</strong>
+                    <input type="hidden" id="redirection" />
+                    <table id="redirectionsTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">#</th>
+                                <th>Name</th>
+                                <th>Creator</th>
+                                <th>Last Modified Date</th>
+                                <th>Language</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tab-4" class="tab-pane fade tab-bordered">
+                <div class="container">
+                    <div class="row mtl mbl">
+                        <div class="col-md-8 mrl" style="margin-left: 10%;">
+                            <label class="control-label" for="url">
+                                URL: <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="Location of Trawler listener (must be reachable by targets!)"></i>
+                            </label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="http://192.168.1.1" id="url" autofocus />
+                            </div>
+
+                            <label class="control-label" for="profile">Sending Profile:</label>
+                            <div class="input-group">
+                                <select class="form-control" placeholder="Sending Profile" id="profile">
+                                    <option></option>
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" data-toggle="modal" data-backdrop="static"
+                                        data-target="#sendTestEmailModal" class="btn btn-primary button">
+                                        <i class="fa fa-envelope"></i> Send Test Email</button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="saveButton" class="btn btn-primary" onclick="save(-1)"><i class="fa fa-save"></i> Save Scenario</button>
+        </div>
+    </div>
+</div>
+
+<!-- Send Test Email Modal -->
+<div class="modal" id="sendTestEmailModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- New Email Modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="sendTestEmailModalTitle">Send Test Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="sendTestEmailModal.flashes"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="control-label" for="to">Send Test Email to:</label>
+                    </div>
+                    <br>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="First Name" name="to_first_name">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="Last Name" name="to_last_name">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" placeholder="Email" name="to_email" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Position" name="to_position">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                <button type="button" class="btn btn-primary" id="sendTestModalSubmit" onclick="sendTestEmail()"><i class="fa fa-envelope"></i> Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{end}}
+{{define "scripts"}}
+<script src="/js/src/vendor/ckeditor/ckeditor.js"></script>
+<script src="/js/src/vendor/ckeditor/adapters/jquery.js"></script>
+<script src="/js/dist/app/autocomplete.min.js"></script>
+<script src="/js/src/app/library_templates_manage.js"></script>
+{{end}}

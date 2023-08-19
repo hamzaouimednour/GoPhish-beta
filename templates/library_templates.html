@@ -1,0 +1,130 @@
+{{define "body"}}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">
+        {{.Title}}
+    </h1> 
+    <div id="flashes" class="row"></div>
+
+    {{if .User.Contains .Permissions "library_templates.create"}}
+    <div class="row">
+        <button type="button" class="btn btn-primary" onclick="location.href='/library_templates/new'"><i
+            class="fa fa-plus"></i> New Scenario</button>
+    </div>
+    {{end}}
+
+    <div class="row col-xs-10" style="margin-top: 20px;">
+        
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab-master">MASTER</a></li>
+            <li><a data-toggle="tab" href="#tab-team">TEAM</a></li>
+            <li><a data-toggle="tab" href="#tab-private">PRIVATE</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="cover-spin"></div>
+            <div id="tab-master" class="tab-pane fade in active tab-bordered">
+               <div class="col-md mlx mrx mtl mbl">
+                   <div id="emptyMessage-masters" class="row" style="display:none;">
+                       <div class="alert alert-info">
+                           No Library Templates was found!
+                       </div>
+                   </div>
+                   <table id="mastersTable" class="table" style="display:none;">
+                       <thead>
+                           <tr>
+                               <th class="no-sort">Name</th>
+                               <th>Owner</th>
+                               <th style="text-align: center;">Details</th>
+                               <th style="text-align: center;">Options</th>
+                           </tr>
+                       </thead>
+                       <tbody></tbody>
+                   </table>
+               </div>
+            </div>
+            <div id="tab-team" class="tab-pane fade tab-bordered">
+                <div class="col-md mlx mrx mtl mbl">
+                    {{if eq .User.Teamid 0}}
+                        <div class="form-group row">
+                            <label for="entity" class="col-sm-2 col-form-label">Filter by Entity : </label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="entity" placeholder="select entity" id="entity">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    {{end}}
+                    <div id="emptyMessage-teams" class="row" style="display:none;">
+                        <div class="alert alert-info">
+                            No Library Templates was found!
+                        </div>
+                    </div>
+                    <table id="teamsTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">#</th>
+                                <th>Entity</th>
+                                <th>Owner</th>
+                                <th style="text-align: center;">Details</th>
+                                <th style="text-align: center;">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tab-private" class="tab-pane fade tab-bordered">
+                <div class="col-md mlx mrx mtl mbl">
+                    <div id="emptyMessage-privates" class="row" style="display:none;">
+                        <div class="alert alert-info">
+                            No Library Templates was found!
+                        </div>
+                    </div>
+                    <table id="privatesTable" class="table" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">#</th>
+                                <th>Owner</th>
+                                <th style="text-align: center;">Details</th>
+                                <th style="text-align: center;">Options</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-2" style="margin-left: 30px;margin-top: 5%;">
+        <label class="control-label" for="name">Theme:</label>
+        <div class="form-group">
+            <select class="form-control" name="topic" placeholder="select theme" id="topic">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <label class="control-label" for="name">Category:</label>
+        <div class="form-group">
+            <select class="form-control" name="category" placeholder="select category" id="category">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <label class="control-label" for="name">Language:</label>
+        <div class="form-group">
+            <select class="form-control" name="language" placeholder="select language" id="language">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+{{end}}
+{{define "scripts"}}
+<script src="/js/src/vendor/ckeditor/ckeditor.js"></script>
+<script src="/js/src/vendor/ckeditor/adapters/jquery.js"></script>
+<script src="/js/dist/app/autocomplete.min.js"></script>
+<script src="/js/src/app/library_templates.js"></script>
+{{end}}

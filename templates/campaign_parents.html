@@ -1,0 +1,275 @@
+{{define "body"}}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row">
+        <h1 class="page-header">
+            Campaigns Management
+        </h1>
+    </div>
+    <div id="flashes" class="row"></div>
+
+    {{if .User.Contains .Permissions "campaigns.create"}}
+    <div class="row">
+        <div class="col-md-5">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-backdrop="static" data-target="#modal"
+            onclick="edit(-1)">
+            <i class="fa fa-plus"></i> New Campaign</button>
+        </div>
+        
+            <!-- <div class="pull-right">
+                <button type="button" onclick="exportToCsvClick();" class="btn btn-primary dropdown-toggle">
+                    <i class="fa fa-file-excel-o"></i> Export CSV
+                </button>
+            </div> -->
+    </div>
+    <div class="row">
+        
+    </div>
+    {{end}}
+
+    &nbsp;
+    <div id="loading">
+        <i class="fa fa-spinner fa-spin fa-4x"></i>
+    </div>
+    <div id="emptyMessage" class="row" style="display:none;">
+        <div class="alert alert-info">
+            No campaigns created yet. Let's create one!
+        </div>
+    </div>
+    <div class="row">
+        <table id="campaignParentsTable" class="table" style="display:none;">
+            <thead>
+                <tr>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-md-2">Owner</th>
+                    <th class="col-md-2">Operations</th>
+                    <th class="col-md-2">Advancement</th>
+                    <th class="col-md-6 no-sort"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{if or (.User.Contains .Permissions "campaign_parents.create") (.User.Contains .Permissions "campaign_parents.update")}}
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="dismiss()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="campaignModalLabel">New Campaign</h4>
+            </div>
+            <div class="modal-body" id="modal_body">
+                <div class="row" id="modal.flashes"></div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Campaign name" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="dismiss()">Close</button>
+                <button type="button" id="modalSubmit" class="btn btn-primary">Save Campaign</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+
+</div>
+{{end}} {{define "scripts"}}
+<script src="/js/src/app/campaign_parents.js"></script>
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+
+
+    function exportToCsv(filename, rows) {
+        var processRow = function (row) {
+            var finalVal = '';
+            for (var j = 0; j < row.length; j++) {
+                var innerValue = row[j] === null ? '' : row[j].toString();
+                if (row[j] instanceof Date) {
+                    innerValue = row[j].toLocaleString();
+                };
+                var result = innerValue.replace(/"/g, '""');
+                if (result.search(/("|,|\n)/g) >= 0)
+                    result = '"' + result + '"';
+                if (j > 0)
+                    finalVal += ';';
+                finalVal += result;
+            }
+            return finalVal + '\n';
+        };
+
+        var csvFile = '';
+        for (var i = 0; i < rows.length; i++) {
+            csvFile += processRow(rows[i]);
+        }
+
+        var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+            navigator.msSaveBlob(blob, filename);
+        } else {
+            var link = document.createElement("a");
+            if (link.download !== undefined) { // feature detection
+                // Browsers that support HTML5 download attribute
+                var url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    }
+    
+  
+    function exportToCsvClick() {
+        var flag = 0;
+        var arr=[];
+        arr.push(['Campaign Name','Campaign Owner','Entity','Creation Date','Operation Number','Progress State (%)','email sent (number)','email opened (number)','email clicked (number)','Emails reported (number)']);
+        var results=[];
+        api.campaignParents.get()
+        .success(function (ps) {
+            
+            
+            campaigns = ps.campaigns;
+            campaignsDetails = ps.campaigns_details;
+            campaignsAdvancements = ps.campaigns_advancements;
+            
+            var final = campaigns.length;
+
+            campaigns.forEach(element => {
+                
+                var result = {
+                    id:0, //ok
+                    compaignName: "", //ok
+                    owner: "", //ok
+                    entity: "", //ok
+                    createdDate: "", //ok
+                    operationNumber: "", //ok
+                    progressState: 1, //ok
+                    riskLevel: 0, //ok
+                    emailSent: 0, //ok
+                    emailOpened: 0, //ok
+                    emailClicked: 0, //ok
+                    submittedData: 0, //ok
+                    mailReported: 0, //ok
+                };
+                result.id = element.id;
+                result.compaignName = element.name;
+                result.createdDate = element.created_date;
+                results.push(result);
+            });
+            
+            results.forEach(rslt => {
+                
+                campaignsDetails.forEach(compdtls => {
+                    if(rslt.id == compdtls.id){
+                        rslt.owner = compdtls.owner;
+                        rslt.operationNumber = compdtls.operations;
+                    }
+                });
+                campaignsAdvancements.forEach(compdadvs => {
+                    if(rslt.id == compdadvs.id){
+                        rslt.progressState = compdadvs.advancement;
+                    }
+                });
+                api.campaignParentId.summary(rslt.id)
+                    .success(function(dt) {
+                        var camps1 = dt.campaigns;
+                        var stats = [];
+                        
+                        camps1.forEach(dep => {
+                            var s = dep.stats
+                            var stat = {
+                                clicked: s.clicked,
+                                email_reported: s.email_reported,
+                                error: s.error,
+                                opened: s.opened,
+                                sent: s.sent,
+                                submitted_data: s.submitted_data,
+                                total: s.total
+                            };
+                            stats.push(stat);
+                        });
+                        var Finalstat = {
+                            clicked: 0,
+                            email_reported: 0,
+                            error: 0,
+                            opened: 0,
+                            sent: 0,
+                            submitted_data: 0,
+                            total: 0
+                        }
+                        stats.forEach(st => {
+                            Finalstat.clicked += st.clicked;
+                            Finalstat.email_reported += st.email_reported;
+                            Finalstat.error += st.error;
+                            Finalstat.opened += st.opened;
+                            Finalstat.sent += st.sent;
+                            Finalstat.submitted_data += st.submitted_data;
+                            Finalstat.total += st.total;
+                        });
+                        rslt.emailClicked = Finalstat.clicked;
+                        rslt.emailOpened = Finalstat.opened;
+                        rslt.emailSent = Finalstat.sent;
+                        rslt.mailReported = Finalstat.email_reported;
+                        rslt.submittedData = Finalstat.submitted_data;
+
+                        rslt.riskLevel = Math.floor((Finalstat.clicked / Finalstat.total) * 100)
+                        api.campaignId.results(rslt.id)  
+                            .success(function(r) {
+                                var rrrr = r.results
+                                rslt.entity = rrrr[0].entity;
+                                let arri = [
+                                rslt.compaignName,
+                                rslt.owner,
+                                rslt.entity,
+                                rslt.createdDate,
+                                rslt.operationNumber,
+                                rslt.progressState,
+                                rslt.emailSent,
+                                rslt.emailOpened,
+                                rslt.emailClicked,
+                                rslt.mailReported
+                                ];
+                            arr.push(arri);
+                            flag++;
+                                if(final == flag){
+                                    exportToCsv("compaignList.csv",arr);
+                                }
+                            });
+                    });
+            });
+            
+        })
+    }
+
+</script>
+
+
+
+
+
+
+
+
+{{end}}
